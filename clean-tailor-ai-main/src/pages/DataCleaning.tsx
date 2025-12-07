@@ -5,6 +5,7 @@ import FileUpload from "@/components/FileUpload";
 import DataChat from "@/components/DataChat";
 import AnalysisResults from "@/components/AnalysisResults";
 import AbbreviationExpansion from "@/components/AbbreviationExpansion";
+import ColumnAbbreviations from "@/components/ColumnAbbreviations";
 
 const DataCleaning = () => {
   const [datasetId, setDatasetId] = useState<string | null>(null);
@@ -32,6 +33,10 @@ const DataCleaning = () => {
                   onExpansionComplete={(expandedCsv) => setCsvText(expandedCsv)}
                 />
                 <DataChat datasetId={datasetId} analysisData={analysisData} csvText={csvText} />
+                <ColumnAbbreviations 
+                  csvText={csvText}
+                  onExpansionComplete={(expandedCsv) => setCsvText(expandedCsv)}
+                />
               </div>
               <div className="lg:col-span-1">
                 <AnalysisResults analysisData={analysisData} />

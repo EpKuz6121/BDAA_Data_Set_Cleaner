@@ -36,7 +36,7 @@ const DataChat = ({ datasetId, analysisData, csvText }: DataChatProps) => {
     
     if (force || isNearBottom) {
       requestAnimationFrame(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
       });
     }
   };

@@ -119,18 +119,28 @@
         const mainImage = document.getElementById('main-image');
 
         if (photoId) {
-            // Construct the image path
-            const imagePath = `images/img_${photoId}.jpg`;
-            mainImage.src = imagePath;
+            // Try HEIC first, then fallback to JPG
+            const heicPath = `images/img_${photoId}.HEIC`;
+            const jpgPath = `images/img_${photoId}.jpg`;
+            
+            // Try HEIC first
+            mainImage.src = heicPath;
             mainImage.alt = `Image ${photoId}`;
             
-            // Handle image load error
+            // Handle image load error - try JPG as fallback
             mainImage.onerror = function() {
+                // If HEIC failed, try JPG
+                if (mainImage.src.includes('.HEIC')) {
+                    mainImage.src = jpgPath;
+                    return;
+                }
+                
+                // Both formats failed
                 const container = document.querySelector('.image-container');
                 container.innerHTML = `
                     <div class="error-message">
                         <h2>Image Not Found</h2>
-                        <p>The image "img_${photoId}.jpg" could not be loaded.</p>
+                        <p>The image "img_${photoId}" could not be loaded.</p>
                         <p>Please check that the image exists in the /images folder.</p>
                         <p><a href="index.html">Return to Menu</a></p>
                     </div>
